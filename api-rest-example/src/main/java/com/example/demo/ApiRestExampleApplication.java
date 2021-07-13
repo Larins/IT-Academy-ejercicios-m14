@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FormularioSpringM13Application {
+public class ApiRestExampleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FormularioSpringM13Application.class, args);
+		SpringApplication.run(ApiRestExampleApplication.class, args);
 	}
 
 }

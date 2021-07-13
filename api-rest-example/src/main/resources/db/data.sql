@@ -1,0 +1,4 @@
+INSERT INTO PRODUCTOS VALUES (null, 'Producto 1');
+INSERT INTO PRODUCTOS VALUES (null, 'Producto 2');
+INSERT INTO PRODUCTOS VALUES (null, 'Producto 3');
+INSERT INTO PRODUCTOS VALUES (null, 'Producto 4');
