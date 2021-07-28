@@ -15,7 +15,7 @@ public class ControllerRest {
 	public ResponseEntity<Producto> getProducto() {
 		Producto producto = new Producto();
 		producto.setId(1);
-		producto.setName("Producto 1 hola");
+		producto.setName("Producto 1");
 		return ResponseEntity.ok(producto);
 	}
 
