@@ -15,52 +15,89 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dao.ProductosDAO;
+import com.example.demo.dao.TiendasDAO;
 import com.example.demo.models.Producto;
+import com.example.demo.models.Tienda;
+
 
 @RestController //Esta clase va a ser un servicio REST
-@RequestMapping("/productos") //En esta URL se van a exponer los servicios de esta clase
+@RequestMapping("/whitecollar") //En esta URL se van a exponer los servicios de esta clase
 public class ControllerRest {
 
 	@Autowired //Inyección de dependencias
-	private ProductosDAO productosDAO;
+	private TiendasDAO tiendasDAO;
 
-	@GetMapping
+	//METODOS CRUD PARA LAS TIENDAS
+	
+	@GetMapping("shops") //tiendas GET todas
+	public ResponseEntity<List<Tienda>> getTiendas() {
+		List<Tienda> tiendas = tiendasDAO.findAll();
+		return ResponseEntity.ok(tiendas);
+	}
+	
+	@RequestMapping(value="shops/{tiendaId}")  //tiendas GET por ID
+	public ResponseEntity<Tienda> getTiendaById(@PathVariable("tiendaId") Long tiendaId) {
+		Optional<Tienda> optionalTienda = tiendasDAO.findById(tiendaId);
+		if (optionalTienda.isPresent()) {
+			return ResponseEntity.ok(optionalTienda.get());
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@PostMapping("shops") //tiendas POST (insertar nueva tienda)
+	public ResponseEntity<Tienda> crearTienda(@RequestBody Tienda tienda) {
+		Tienda newTienda = tiendasDAO.save(tienda);
+		return ResponseEntity.ok(newTienda);
+	}
+	
+	@PutMapping("shops") //tiendas PUT (modificar tienda existente)
+	public ResponseEntity<Tienda> updateTienda(@RequestBody Tienda tienda) {
+		Optional <Tienda> optionalTienda = tiendasDAO.findById(tienda.getId());
+		if (optionalTienda.isPresent()) {
+			Tienda updateTienda = optionalTienda.get();
+			updateTienda.setName(tienda.getName());
+			tiendasDAO.save(updateTienda);
+			return ResponseEntity.ok(updateTienda);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@DeleteMapping(value="shops/{tiendaId}") //tiendas DELETE (eliminar tienda existente)
+	public ResponseEntity<Void> deleteTiendas(@PathVariable("tiendaId") Long tiendaId) {
+		tiendasDAO.deleteById(tiendaId);
+		return ResponseEntity.ok(null);
+	}
+	
+	//MÉTODOS CRUD PARA LOS PRODUCTOS
+	
+	@Autowired //Inyección de dependencias
+	private ProductosDAO productosDAO;
+	
+	@GetMapping("products") //productos GET todos
 	public ResponseEntity<List<Producto>> getProducto() {
 		List<Producto> productos = productosDAO.findAll();
 		return ResponseEntity.ok(productos);
-		//Producto producto = new Producto();
-		//producto.setId(1);
-		//producto.setName("Producto 1");
-		//return ResponseEntity.ok(producto);
 	}
-
-	//NO ME FUNCIONA EL METODO POST :( PREGUNTAR EDUARD
-
-	@PostMapping //productos (POST)
-	public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-		Producto newProduct = productosDAO.save(producto);
-		return ResponseEntity.ok(newProduct);
-	}
-
-	@DeleteMapping(value="{productId}")
-	public ResponseEntity<Void> deleteProducto(@PathVariable("productId") Long productId) {
-		productosDAO.deleteById(productId);
-		return ResponseEntity.ok(null);
-	}
-
-	@RequestMapping(value="{productId}")
-	public ResponseEntity<Producto> getProductoById(@PathVariable("productId") Long productId) {
-		Optional<Producto> optionalProducto = productosDAO.findById(productId);
+	
+	@RequestMapping(value="products/{productoId}")  //productos GET por ID
+	public ResponseEntity<Producto> getProductoById(@PathVariable("productoId") Long productoId) {
+		Optional<Producto> optionalProducto = productosDAO.findById(productoId);
 		if (optionalProducto.isPresent()) {
 			return ResponseEntity.ok(optionalProducto.get());
 		} else {
 			return ResponseEntity.noContent().build();
 		}
 	}
-
-	//NO ME FUNCIONA EL METODO PUT :( PREGUNTAR EDUARD
-
-	@PutMapping
+	
+	@PostMapping("products") //productos POST (insertar nuevo producto)
+	public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
+		Producto newProducto = productosDAO.save(producto);
+		return ResponseEntity.ok(newProducto);
+	}
+	
+	@PutMapping("products") //productos PUT (modificar producto existente)
 	public ResponseEntity<Producto> updateProducto(@RequestBody Producto producto) {
 		Optional <Producto> optionalProducto = productosDAO.findById(producto.getId());
 		if (optionalProducto.isPresent()) {
@@ -72,23 +109,11 @@ public class ControllerRest {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-
-	//@GetMapping("hello") //Servicio disponible mediante GET
-	//RequestMapping(value="hello", method=RequestMethod.GET) //URL en qué está el servicio
-	public String hello() {
-		return "hello world";
+	
+	@DeleteMapping(value="products/{productoId}") //productos DELETE (eliminar producto existente)
+	public ResponseEntity<Void> deleteProductos(@PathVariable("productoId") Long productoId) {
+		productosDAO.deleteById(productoId);
+		return ResponseEntity.ok(null);
 	}
-
-	//NOTA SOBRE LAS URL
-	//Podemos especificar la URL que deseemos
-	//La vamos construyendo mediante @RequestMapping y @GetMapping
-	//Ejemplos:
-		//@RequestMapping("/") + @GetMapping("") apunta a localhost:8080/
-		//@RequestMapping("/") + @GetMapping("hello") apunta a localhost:8080/hello
-		//@RequestMapping("/productos") + @GetMapping("cualquiercosa") apunta a localhost:8080/productos/cualquiercosa
-		//@RequestMapping("/productos") + @GetMapping + @RequestMapping(value="{productId}") apunta a localhost:8080/productos/1 (por ejemplo)
-	//Todo lo demás (lo de dentro del public String blabla) queda igual
-
-
 }
+
