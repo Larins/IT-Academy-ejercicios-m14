@@ -80,38 +80,16 @@ public class ControllerRest {
 		List<Producto> productos = productosDAO.findAll();
 		return ResponseEntity.ok(productos);
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value="products/{productoId}")  //productos GET por ID
 	public ResponseEntity<Producto> getProductoById(@PathVariable("productoId") Long productoId) {
 		Optional<Producto> optionalProducto = productosDAO.findById(productoId);
-=======
-
-	@PostMapping //productos (POST)
-	public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-		Producto newProduct = productosDAO.save(producto);
-		return ResponseEntity.ok(newProduct);
-	}
-	
-	
-
-	@DeleteMapping(value="{productId}")
-	public ResponseEntity<Void> deleteProducto(@PathVariable("productId") Long productId) {
-		productosDAO.deleteById(productId);
-		return ResponseEntity.ok(null);
-	}
-
-	@RequestMapping(value="{productId}")
-	public ResponseEntity<Producto> getProductoById(@PathVariable("productId") Long productId) {
-		Optional<Producto> optionalProducto = productosDAO.findById(productId);
->>>>>>> branch 'main' of https://github.com/Larins/IT-Academy-ejercicios-m14
 		if (optionalProducto.isPresent()) {
 			return ResponseEntity.ok(optionalProducto.get());
 		} else {
 			return ResponseEntity.noContent().build();
 		}
 	}
-<<<<<<< HEAD
 	
 	@PostMapping("products") //productos POST (insertar nuevo producto)
 	public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
@@ -120,11 +98,6 @@ public class ControllerRest {
 	}
 	
 	@PutMapping("products") //productos PUT (modificar producto existente)
-=======
-
-
-	@PutMapping
->>>>>>> branch 'main' of https://github.com/Larins/IT-Academy-ejercicios-m14
 	public ResponseEntity<Producto> updateProducto(@RequestBody Producto producto) {
 		Optional <Producto> optionalProducto = productosDAO.findById(producto.getId());
 		if (optionalProducto.isPresent()) {
