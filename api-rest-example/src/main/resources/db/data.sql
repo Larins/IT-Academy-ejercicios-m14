@@ -1,12 +1,35 @@
 INSERT INTO tiendas VALUES (null, 'Tienda 1');
 INSERT INTO tiendas VALUES (null, 'Tienda 2');
 INSERT INTO tiendas VALUES (null, 'Tienda 3');
-INSERT INTO tiendas VALUES (null, 'Tienda 4');
 
-
-INSERT INTO productos VALUES (null, 'Producto 1');
-INSERT INTO productos VALUES (null, 'Producto 2');
-INSERT INTO productos VALUES (null, 'Producto 3');
-INSERT INTO productos VALUES (null, 'Producto 4');
-
+INSERT INTO productos VALUES (null, 'Producto 1', 1);
+INSERT INTO productos VALUES (null, 'Producto 2', 1);
+INSERT INTO productos VALUES (null, 'Producto 3', 1);
+INSERT INTO productos VALUES (null, 'Producto 4', 1);
+INSERT INTO productos VALUES (null, 'Producto 5', 1);
+INSERT INTO productos VALUES (null, 'Producto 6', 1);
+INSERT INTO productos VALUES (null, 'Producto 7', 1);
+INSERT INTO productos VALUES (null, 'Producto 8', 1);
+INSERT INTO productos VALUES (null, 'Producto 9', 1);
+INSERT INTO productos VALUES (null, 'Producto 10', 1);
+INSERT INTO productos VALUES (null, 'Producto 11', 2);
+INSERT INTO productos VALUES (null, 'Producto 12', 2);
+INSERT INTO productos VALUES (null, 'Producto 13', 2);
+INSERT INTO productos VALUES (null, 'Producto 14', 2);
+INSERT INTO productos VALUES (null, 'Producto 15', 2);
+INSERT INTO productos VALUES (null, 'Producto 16', 2);
+INSERT INTO productos VALUES (null, 'Producto 17', 2);
+INSERT INTO productos VALUES (null, 'Producto 18', 2);
+INSERT INTO productos VALUES (null, 'Producto 19', 2);
+INSERT INTO productos VALUES (null, 'Producto 20', 3);
+INSERT INTO productos VALUES (null, 'Producto 21', 3);
+INSERT INTO productos VALUES (null, 'Producto 22', 3);
+INSERT INTO productos VALUES (null, 'Producto 23', 3);
+INSERT INTO productos VALUES (null, 'Producto 24', 3);
+INSERT INTO productos VALUES (null, 'Producto 25', 3);
+INSERT INTO productos VALUES (null, 'Producto 26', 3);
+INSERT INTO productos VALUES (null, 'Producto 27', 3);
+INSERT INTO productos VALUES (null, 'Producto 28', 3);
+INSERT INTO productos VALUES (null, 'Producto 29', 3);
+INSERT INTO productos VALUES (null, 'Producto 30', 3);
 

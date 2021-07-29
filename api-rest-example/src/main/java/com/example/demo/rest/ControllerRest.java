@@ -76,13 +76,13 @@ public class ControllerRest {
 	@Autowired //Inyección de dependencias
 	private ProductosDAO productosDAO;
 	
-	@GetMapping("shops/products") //productos GET todos
+	@GetMapping(value="products/shop/{tiendaId}") //productos GET todos en una tienda
 	public ResponseEntity<List<Producto>> getProductoTienda() {
 		List<Producto> productos = productosDAO.findAll();
 		return ResponseEntity.ok(productos);
 	}
 	
-	@RequestMapping(value="shops/products/{productoId}")  //productos GET por ID
+	@RequestMapping(value="products/shop/{tiendaId}/product/{productoId}")  //productos GET por ID  en una tienda
 	public ResponseEntity<Producto> getProductoByIdTienda(@PathVariable("productoId") Long productoId) {
 		Optional<Producto> optionalProducto = productosDAO.findById(productoId);
 		if (optionalProducto.isPresent()) {
@@ -92,13 +92,13 @@ public class ControllerRest {
 		}
 	}
 	
-	@PostMapping("shops/products") //productos POST (insertar nuevo producto)
+	@PostMapping(value="products/shop/{tiendaId}") //productos POST (insertar nuevo producto en una tienda)
 	public ResponseEntity<Producto> crearProductoTienda(@RequestBody Producto producto) {
 		Producto newProducto = productosDAO.save(producto);
 		return ResponseEntity.ok(newProducto);
 	}
 	
-	@PutMapping("shops/products") //productos PUT (modificar producto existente)
+	@PutMapping(value="products/shop/{tiendaId}") //productos PUT (modificar producto existente en una tienda)
 	public ResponseEntity<Producto> updateProductoTienda(@RequestBody Producto producto) {
 		Optional <Producto> optionalProducto = productosDAO.findById(producto.getId());
 		if (optionalProducto.isPresent()) {
@@ -111,15 +111,16 @@ public class ControllerRest {
 		}
 	}
 	
-	@DeleteMapping(value="shops/products/{productoId}") //productos DELETE (eliminar producto existente)
+	@DeleteMapping(value="products/shop/{tiendaId}/product/{productoId}") //productos DELETE (eliminar producto existente en una tienda)
 	public ResponseEntity<Void> deleteProductosTienda(@PathVariable("productoId") Long productoId) {
 		productosDAO.deleteById(productoId);
 		return ResponseEntity.ok(null);
 	}
 	
 	//MÉTODOS CRUD PARA LOS PRODUCTOS (SUELTOS)
+	//Extra: obtenemos listados de productos sin filtrar por tienda
+	//No lo pide el ejercicio pero pongamos que...
 	//Supongamos que White Collar S.A. es una franquicia y tienen una central donde analizan datos de todas las tiendas
-	//Respecto al apartado anterior, solo cambian las URL
 	
 	
 	@GetMapping("products") //productos GET todos

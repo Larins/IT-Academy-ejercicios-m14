@@ -11,5 +11,6 @@ DROP TABLE IF EXISTS productos;
 
 CREATE TABLE productos (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(25)
+	name VARCHAR(25),
+	shop_id INTEGER 
 );
