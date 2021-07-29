@@ -1,5 +1,6 @@
 package com.example.demo.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,16 +71,28 @@ public class ControllerRest {
 		return ResponseEntity.ok(null);
 	}
 	
-	//MÉTODOS CRUD PARA LOS PRODUCTOS (SUELTOS)
+	//MÉTODOS CRUD PARA LOS PRODUCTOS (DE UNA TIENDA CONCRETA)
 	//Lo que pide el ejercicio: extraer, por ejemplo, listados de productos por tienda
 	
 	@Autowired //Inyección de dependencias
 	private ProductosDAO productosDAO;
 	
 	@GetMapping(value="products/shop/{tiendaId}") //productos GET todos en una tienda
-	public ResponseEntity<List<Producto>> getProductoTienda() {
+	public ResponseEntity<List<Producto>> getProductoTienda(@PathVariable("tiendaId") Long shopid) {
+		
+		List<Producto> productosTienda = new ArrayList<Producto>(); 
+		//primera opcion: bucle for each
+		/*
 		List<Producto> productos = productosDAO.findAll();
-		return ResponseEntity.ok(productos);
+		for (producto p: productos ) {
+			if el producto es de la tienda
+			productosTienda.add(p);
+		}*/
+		//segunda opcion: usando las funciones jpa
+		productosTienda = productosDAO.findAllByshopid(shopid);
+		return ResponseEntity.ok(productosTienda);
+		
+
 	}
 	
 	@RequestMapping(value="products/shop/{tiendaId}/product/{productoId}")  //productos GET por ID  en una tienda
