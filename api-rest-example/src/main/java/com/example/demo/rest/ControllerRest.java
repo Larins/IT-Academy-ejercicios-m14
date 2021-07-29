@@ -34,13 +34,13 @@ public class ControllerRest {
 		//return ResponseEntity.ok(producto);
 	}
 
-	//NO ME FUNCIONA EL METODO POST :( PREGUNTAR EDUARD
-
 	@PostMapping //productos (POST)
 	public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
 		Producto newProduct = productosDAO.save(producto);
 		return ResponseEntity.ok(newProduct);
 	}
+	
+	
 
 	@DeleteMapping(value="{productId}")
 	public ResponseEntity<Void> deleteProducto(@PathVariable("productId") Long productId) {
@@ -58,7 +58,6 @@ public class ControllerRest {
 		}
 	}
 
-	//NO ME FUNCIONA EL METODO PUT :( PREGUNTAR EDUARD
 
 	@PutMapping
 	public ResponseEntity<Producto> updateProducto(@RequestBody Producto producto) {
