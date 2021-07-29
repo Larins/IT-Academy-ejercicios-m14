@@ -70,10 +70,57 @@ public class ControllerRest {
 		return ResponseEntity.ok(null);
 	}
 	
-	//MÉTODOS CRUD PARA LOS PRODUCTOS
+	//MÉTODOS CRUD PARA LOS PRODUCTOS (SUELTOS)
+	//Lo que pide el ejercicio: extraer, por ejemplo, listados de productos por tienda
 	
 	@Autowired //Inyección de dependencias
 	private ProductosDAO productosDAO;
+	
+	@GetMapping("shops/products") //productos GET todos
+	public ResponseEntity<List<Producto>> getProductoTienda() {
+		List<Producto> productos = productosDAO.findAll();
+		return ResponseEntity.ok(productos);
+	}
+	
+	@RequestMapping(value="shops/products/{productoId}")  //productos GET por ID
+	public ResponseEntity<Producto> getProductoByIdTienda(@PathVariable("productoId") Long productoId) {
+		Optional<Producto> optionalProducto = productosDAO.findById(productoId);
+		if (optionalProducto.isPresent()) {
+			return ResponseEntity.ok(optionalProducto.get());
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@PostMapping("shops/products") //productos POST (insertar nuevo producto)
+	public ResponseEntity<Producto> crearProductoTienda(@RequestBody Producto producto) {
+		Producto newProducto = productosDAO.save(producto);
+		return ResponseEntity.ok(newProducto);
+	}
+	
+	@PutMapping("shops/products") //productos PUT (modificar producto existente)
+	public ResponseEntity<Producto> updateProductoTienda(@RequestBody Producto producto) {
+		Optional <Producto> optionalProducto = productosDAO.findById(producto.getId());
+		if (optionalProducto.isPresent()) {
+			Producto updateProducto = optionalProducto.get();
+			updateProducto.setName(producto.getName());
+			productosDAO.save(updateProducto);
+			return ResponseEntity.ok(updateProducto);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@DeleteMapping(value="shops/products/{productoId}") //productos DELETE (eliminar producto existente)
+	public ResponseEntity<Void> deleteProductosTienda(@PathVariable("productoId") Long productoId) {
+		productosDAO.deleteById(productoId);
+		return ResponseEntity.ok(null);
+	}
+	
+	//MÉTODOS CRUD PARA LOS PRODUCTOS (SUELTOS)
+	//Supongamos que White Collar S.A. es una franquicia y tienen una central donde analizan datos de todas las tiendas
+	//Respecto al apartado anterior, solo cambian las URL
+	
 	
 	@GetMapping("products") //productos GET todos
 	public ResponseEntity<List<Producto>> getProducto() {
