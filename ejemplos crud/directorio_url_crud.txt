@@ -1,0 +1,19 @@
+URL BASE:
+	NOTA: no devuelve info, sirve de base para lo demás
+http://localhost:8080/whitecollar/
+
+LISTADO DE TIENDAS
+http://localhost:8080/whitecollar/shops/
+
+DATOS DE UNA TIENDA
+http://localhost:8080/whitecollar/shops/1
+
+LISTADO GLOBAL DE PRODUCTOS
+http://localhost:8080/whitecollar/products/
+
+LISTADO DE PRODUCTOS DE UNA TIENDA
+http://localhost:8080/whitecollar/products/shop/1/
+
+PRODUCTO CONCRETO DE UNA TIENDA CONCRETA
+	NOTA: en caso de error, manda el producto
+http://localhost:8080/whitecollar/products/shop/1/product/1
